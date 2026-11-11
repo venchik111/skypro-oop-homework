@@ -29,5 +29,20 @@ class Category:
         """Возвращает описание всех товаров, по одному на строку."""
         result = ""
         for product in self.__products:
-            result += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+            result += str(product) + "\n"
         return result
+
+    def __str__(self) -> str:
+        """Возвращает название категории и суммарный остаток товаров."""
+        quantity = 0
+        for product in self.__products:
+            quantity += product.quantity
+        return f"{self.name}, количество продуктов: {quantity} шт."
+
+    def __len__(self) -> int:
+        """Возвращает число товарных позиций для перебора."""
+        return len(self.__products)
+
+    def __getitem__(self, index):
+        """Возвращает товар по индексу, не открывая сам список."""
+        return self.__products[index]

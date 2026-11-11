@@ -12,8 +12,10 @@
 
 - `src/product.py` — товар: название, описание, цена и количество на складе.
 - `src/category.py` — категория: название, описание и список объектов товаров.
+- `src/product_iterator.py` — вспомогательный класс перебора товаров категории.
+- `iterator_example.py` — пример цикла `for` по товарам категории.
 - `src/utils.py` — функция `load_categories`, чтение JSON и создание объектов.
-- `main.py` — пример добавления товаров, создания из словаря и изменения цены.
+- `main.py` — пример строкового вывода и сложения стоимости остатков товаров.
 - `load_example.py` — отдельный пример загрузки JSON.
 - `data/products.json` — исходные данные из задания без изменений.
 - `tests/` — тесты pytest с фикстурами.
@@ -37,13 +39,32 @@
 названия. Новый объект получает суммарный остаток и максимальную цену.
 Исходные объекты и список не изменяются; метод возвращает новый товар.
 
+## Магические методы
+
+`str(product)` возвращает строку вида `Книга, 80 руб. Остаток: 15 шт.`.
+Геттер `category.products` использует это представление и добавляет перевод
+строки после каждого товара.
+
+`str(category)` показывает название и сумму остатков `quantity` всех товаров
+данной категории. Общий счетчик товарных позиций `Category.product_count`
+при этом продолжает считать позиции, а не единицы на складе.
+
+`product1 + product2` возвращает число: `price1 * quantity1 + price2 * quantity2`.
+Сами товары не изменяются. Например, `100 * 10 + 200 * 2` дает `1400`.
+
+`ProductIterator(category)` перебирает объекты товаров по порядку. Для этого
+категория поддерживает получение товара по индексу и число позиций через `len`.
+Список остается приватным, добавление выполняется через `add_product`.
+Метод `__iter__` начинает перебор заново, как в примере урока, а `__next__`
+возвращает очередной товар или вызывает `StopIteration`.
+
 ## Запуск в PyCharm
 
 1. Выбрать **File → Open** и открыть папку проекта.
 2. Выбрать интерпретатор проекта `.venv/bin/python`.
    На другом компьютере сначала выполнить `poetry install`.
 3. Открыть `main.py`, нажать правой кнопкой и выбрать **Run 'main'**.
-4. При снижении цены ввести `y` или `n` в консоли Run.
+4. Для примера перебора товаров запустить `iterator_example.py`.
 5. Для загрузки JSON запустить `load_example.py`.
 6. Для тестов нажать правой кнопкой на папку `tests` и выбрать запуск pytest.
 
@@ -56,13 +77,15 @@ Python 3.11 или новее. Для основного кода сторонн
 poetry install
 poetry run python main.py
 poetry run python load_example.py
+poetry run python iterator_example.py
 poetry run pytest
-poetry run flake8 src tests main.py load_example.py
-poetry run black --check src tests main.py load_example.py
-poetry run isort --check-only src tests main.py load_example.py
+poetry run flake8 src tests main.py load_example.py iterator_example.py
+poetry run black --check src tests main.py load_example.py iterator_example.py
+poetry run isort --check-only src tests main.py load_example.py iterator_example.py
 ```
 
-В `main.py` создается одна категория, затем в нее добавляется четвертый товар.
+В `main.py` создается категория с тремя товарами и суммарным остатком 27 шт.
+Результаты сложения пар товаров: 2580000.0, 1334000.0 и 2114000.0.
 Тесты проверяют поля обоих классов, независимость товаров, общие счетчики,
 пустую категорию, загрузку JSON, добавление товаров, создание из словаря
 и изменение цены с подтверждением и отказом. Счетчики сбрасываются фикстурой перед
@@ -72,5 +95,5 @@ poetry run isort --check-only src tests main.py load_example.py
 ## GitFlow и сдача
 
 Основная ветка — `main`, ветка разработки — `develop`.
-Работа с режимами доступа выполнена в `feature/access-modes`.
+Магические методы добавлены в ветке `feature/magic-methods`.
 Pull request направлен из ветки задания в `develop`.
