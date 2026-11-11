@@ -59,5 +59,3 @@ poetry run isort --check-only src tests main.py load_example.py
 Основная ветка — `main`, ветка разработки — `develop`.
 Домашняя работа выполнена в `feature/product-category`.
 Pull request направлен из ветки задания в `develop`.
-
-Условия: https://my-singularity.sky.pro/student-cabinet/stream-lesson/260189/homework-requirements
