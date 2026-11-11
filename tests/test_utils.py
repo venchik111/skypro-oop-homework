@@ -4,7 +4,6 @@ from pathlib import Path
 import pytest
 
 from src.category import Category
-from src.product import Product
 from src.utils import load_categories
 
 
@@ -14,13 +13,11 @@ def test_load_categories():
     assert len(categories) == 2
     assert isinstance(categories[0], Category)
     assert categories[0].name == "Смартфоны"
-    assert len(categories[0].products) == 3
-    product = categories[0].products[0]
-    assert isinstance(product, Product)
-    assert product.name == "Samsung Galaxy C23 Ultra"
-    assert product.description == "256GB, Серый цвет, 200MP камера"
-    assert product.price == 180000.0
-    assert product.quantity == 5
+    assert categories[0].products == (
+        "Samsung Galaxy C23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+        "Iphone 15, 210000.0 руб. Остаток: 8 шт.\n"
+        "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.\n"
+    )
     assert categories[1].name == "Телевизоры"
     assert Category.category_count == 2
     assert Category.product_count == 4
@@ -40,7 +37,7 @@ def test_category_without_products(tmp_path):
     path.write_text(json.dumps(data), encoding="utf-8")
     categories = load_categories(path)
     assert categories[0].description == "Учебники"
-    assert categories[0].products == []
+    assert categories[0].products == ""
     assert Category.category_count == 1
     assert Category.product_count == 0
 

@@ -8,7 +8,6 @@ if __name__ == "__main__":
     categories = load_categories(data_file)
     for category in categories:
         print(category.name)
-        for product in category.products:
-            print(f"  {product.name}: {product.price} руб., {product.quantity} шт.")
+        print(category.products, end="")
     print(f"Категорий: {Category.category_count}")
     print(f"Товаров: {Category.product_count}")
