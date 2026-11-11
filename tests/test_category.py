@@ -5,9 +5,7 @@ from src.product import Product
 def test_category_init(category, product):
     assert category.name == "Смартфоны"
     assert category.description == "Мобильные телефоны"
-    assert category.products == [product]
-    assert isinstance(category.products, list)
-    assert isinstance(category.products[0], Product)
+    assert category.products == "Телефон, 25000.0 руб. Остаток: 10 шт.\n"
 
 
 def test_category_count(category):
@@ -15,7 +13,7 @@ def test_category_count(category):
     assert Category.category_count == 2
     assert category.category_count == 2
     assert other.category_count == 2
-    assert other.products == []
+    assert other.products == ""
     assert Category.product_count == 1
 
 
