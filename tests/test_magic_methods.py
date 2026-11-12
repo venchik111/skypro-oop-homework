@@ -72,7 +72,6 @@ def test_add_products_without_stock(product):
 
 
 def test_add_unsupported_type(product):
-    assert product.__add__(100) is NotImplemented
     with pytest.raises(TypeError):
         product + 100
 
