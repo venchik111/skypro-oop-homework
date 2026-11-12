@@ -1,7 +1,8 @@
+from src.base_entity import BaseEntity
 from src.product import Product
 
 
-class Category:
+class Category(BaseEntity):
     """Категория с приватным списком товаров и общими счетчиками."""
 
     name: str
@@ -48,3 +49,11 @@ class Category:
     def __getitem__(self, index):
         """Возвращает товар по индексу, не открывая сам список."""
         return self.__products[index]
+
+    @property
+    def total_price(self) -> float:
+        """Возвращает стоимость всех остатков категории."""
+        total = 0
+        for product in self.__products:
+            total += product.price * product.quantity
+        return total

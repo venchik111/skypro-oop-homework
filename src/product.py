@@ -1,5 +1,11 @@
-class Product:
+from src.base_product import BaseProduct
+from src.logging_mixin import LoggingMixin
+
+
+class Product(LoggingMixin, BaseProduct):
     """Товар интернет-магазина."""
+
+    _repr_fields = ("name", "description", "price", "quantity")
 
     name: str
     description: str
@@ -11,6 +17,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     @classmethod
     def new_product(cls, product_data: dict, products: list | None = None):
