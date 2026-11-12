@@ -41,3 +41,13 @@ class Product:
             if answer != "y":
                 return
         self.__price = new_price
+
+    def __str__(self) -> str:
+        """Возвращает название, цену и остаток товара."""
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        """Возвращает полную стоимость остатков двух товаров."""
+        if not isinstance(other, Product):
+            return NotImplemented
+        return self.price * self.quantity + other.price * other.quantity
