@@ -15,9 +15,7 @@ class Product:
     @classmethod
     def new_product(cls, product_data: dict, products: list | None = None):
         """Создает товар из словаря, объединяя его с одноименным товаром."""
-        product = cls(
-            product_data["name"], product_data["description"], product_data["price"], product_data["quantity"]
-        )
+        product = cls(**product_data)
         if products is not None:
             for existing in products:
                 if existing.name == product.name:
@@ -48,6 +46,6 @@ class Product:
 
     def __add__(self, other):
         """Возвращает полную стоимость остатков двух товаров."""
-        if not isinstance(other, Product):
-            return NotImplemented
+        if type(self) is not type(other):
+            raise TypeError("Складывать можно только товары одного класса")
         return self.price * self.quantity + other.price * other.quantity
