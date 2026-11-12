@@ -112,6 +112,5 @@ poetry run isort --check-only src tests main.py load_example.py iterator_example
 ## GitFlow и сдача
 
 Основная ветка — `main`, ветка разработки — `develop`.
-Наследование добавлено в ветке `feature/inheritance` на основе
-`feature/magic-methods`. PR по наследованию направлен в `feature/magic-methods`,
-пока предыдущая работа ожидает слияния в `develop`.
+Наследование добавлено в ветке `feature/inheritance`.
+PR по наследованию направлен в `develop`.
