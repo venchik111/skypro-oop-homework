@@ -10,9 +10,9 @@ def test_product_init(product):
 
 
 def test_products_are_independent(product):
-    other = Product("Телевизор", "4K", 50000.0, 0)
+    other = Product("Телевизор", "4K", 50000.0, 3)
     assert other.name == "Телевизор"
-    assert other.quantity == 0
+    assert other.quantity == 3
     assert product.name == "Телефон"
     assert product.quantity == 10
     assert Category.product_count == 0

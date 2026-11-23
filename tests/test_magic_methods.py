@@ -65,7 +65,8 @@ def test_add_products_fractional_price():
 
 
 def test_add_products_without_stock(product):
-    empty = Product("Пустой", "Нет на складе", 100, 0)
+    empty = Product("Пустой", "Нет на складе", 100, 1)
+    empty.quantity = 0
     assert product + empty == 250000.0
     assert empty + empty == 0
     assert product + product == 500000.0
