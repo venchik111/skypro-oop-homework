@@ -4,6 +4,8 @@ from src.product import Product
 class LawnGrass(Product):
     """Газонная трава с данными о производителе и прорастании."""
 
+    _repr_fields = Product._repr_fields + ("country", "germination_period", "color")
+
     country: str
     germination_period: str
     color: str
@@ -18,7 +20,8 @@ class LawnGrass(Product):
         germination_period: str,
         color: str,
     ):
-        super().__init__(name, description, price, quantity)
         self.country = country
         self.germination_period = germination_period
         self.color = color
+        # Миксин выводит все поля после их заполнения.
+        super().__init__(name, description, price, quantity)
